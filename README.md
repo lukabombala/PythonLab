@@ -1,7 +1,7 @@
 # PythonLab
 
-Link do dysku:
-[Link do zadań](https://bit.ly/3BtLuXX)
+
+[Link do dysku z zadaniami](https://bit.ly/3BtLuXX)
 
 
 mail:
