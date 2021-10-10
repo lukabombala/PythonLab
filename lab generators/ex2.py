@@ -11,5 +11,5 @@ def repeat(n, times=None):
 for elem in repeat(10, 5):
     print(elem, end=" ")
 
-for elem in repeat(10):
-    print(elem, end=" ")
+#for elem in repeat(10):
+#    print(elem, end=" ")
