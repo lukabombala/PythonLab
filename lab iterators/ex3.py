@@ -16,7 +16,7 @@ class repeat:
 
 
 # testing
-for elem in repeat(10, 3):
+for elem in repeat(5):
     print(elem, end=" ")
 
 # for elem in repeat(5):

@@ -26,7 +26,7 @@ class tetranacci:
 
 def func():
     n = int(input("Podaj wyraz ciągu tetranacciego:"))
-    tet = tetranacci(20)
+    tet = tetranacci(10)
     for _ in range(n):
         print(next(tet))
 
