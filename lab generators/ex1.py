@@ -10,6 +10,6 @@ def even(n=0):
 
 
 # testing
-for i in even():
+for i in even(5):
     print(i)
     time.sleep(0.5)

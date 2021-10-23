@@ -1,9 +1,9 @@
-def repeat(n, times=None):
+def repeat(obj, times=None):
     count = 0
     while True:
         if count == times:
             break
-        yield n
+        yield obj
         count += 1
 
 

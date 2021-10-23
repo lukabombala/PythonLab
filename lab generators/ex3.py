@@ -7,7 +7,7 @@ def accumulate(seq):
 
 
 # testing
-sequence = [1, 2, 3, 5, 643, 4, 1]
+sequence = [1, 2, 3, 4, 5]
 print([elem for elem in accumulate(sequence)])
 
 sequence2 = ["Ala ", "ma ", "kota"]
