@@ -1,7 +1,4 @@
 
-Imię i nazwisko: **Łukasz Bombała**
-Nr indeksu: **76152**
-Termin oddania pracy: **24.10.2021**
 
 ## Lista zadań 1: Generatory
 
