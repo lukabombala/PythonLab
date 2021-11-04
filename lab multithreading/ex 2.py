@@ -25,5 +25,5 @@ def downloadpages(num):
     for elem in output:
         print(f"Liczba znaków dla {elem[1]}: {len(elem[0].read())}")
 
-
+# testing
 downloadpages(5)
