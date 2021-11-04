@@ -4,7 +4,7 @@ import threading
 def thread_function(i, seq):
     thread_function._lock = threading.Lock()
     with thread_function._lock:
-        for j in range(10):
+        for j in range(9):
             seq.append(10*i+j)
 
 

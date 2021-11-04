@@ -12,11 +12,11 @@ class body:
             print(exc_type, exc_val, exc_tb, sep="\n")
 
     @staticmethod
-    def both(_str, tag):
-        return f"<{tag}>{_str}</{tag}>"
+    def both(_str, tag, end="\n"):
+        return f"<{tag}>{_str}</{tag}>{end}"
 
-    def h1(self, _str):
-        self.file.write(self.both(_str, "h1"))
+    def h1(self, _str, **kwargs):
+        self.file.write(self.both(_str, "h1", [kwargs['end'] if kwargs else "\n"][0]))
 
-    def p(self, _str):
-        self.file.write(self.both(_str, "p"))
+    def p(self, _str, **kwargs):
+        self.file.write(self.both(_str, "p", [kwargs['end'] if kwargs else "\n"][0]))
