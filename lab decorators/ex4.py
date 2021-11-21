@@ -1,70 +1,106 @@
-class user:
-    users = {}
-    logged = {}
+class NotLoggedIn(Exception):
+    pass
 
-    def __init__(self, username, password):
+
+class user:
+    def __init__(self, username, password, _id):
+        self.id = _id
         self.username = username
         self.password = password
-        user.users[username] = password
+        self.logged = False
 
-    @staticmethod
-    def check_credentials(username, password):
-        if user.users[username] == password:
+    def __str__(self):
+        return f"User: {self.username} - logged in: {[self.logged]}"
+
+
+class login:
+    user_id = 1
+
+    def __init__(self):
+        self.users = {}
+
+    def add_user(self, username, password):
+
+        if username in [_user.username for _user in self.users.values()]:
+            raise KeyError("Username is already taken")
+
+        new_user = user(username, password, login.user_id)
+        self.users[new_user.id] = new_user
+        login.user_id += 1
+
+    def get_user(self, username, out=False):
+        _obj = [_user for _user in self.users.values() if _user.username == username]
+        if _obj:
+            return _obj[0]
+        else:
+            return out
+
+    def check_credentials(self, username, password):
+        if self.get_user(username).password == password:
             return True
         else:
             return False
 
-    @staticmethod
-    def login(username, password):
-        if user.check_credentials(username, password):
-            user.logged[username] = True
+    def login(self, username, password):
+        self.logout()
+
+        if self.check_credentials(username, password):
+            self.get_user(username).logged = True
             print(f"User <{username}> logged succesfully.")
         else:
             print(f"Failed to login User <{username}>.")
 
-    @staticmethod
-    def logout(username):
-        user.logged[username] = False
+    def logout(self, *args):
+        if args:
+            self.get_user(args[0]).logged = False
+        else:
+            for _user in self.users.values():
+                _user.logged = False
 
-    def __str__(self):
-        return f"User: {self.username} - logged in: {user.logged[self.username]}"
+    def show_users(self):
 
-    @staticmethod
-    def show_users():
-        users = [(useritem, user.logged.get(useritem[0], False)) for useritem in user.users.items()]
-        loggedusers = [usertuple[0] for usertuple in users if usertuple[1] is True]
-        otherusers = [usertuple[0] for usertuple in users if usertuple[1] is False]
+        loggedusers = [_user for _user in self.users.values() if _user.logged is True]
+        otherusers = [_user for _user in self.users.values() if _user.logged is False]
 
-        print("Logged users:")
-        for usertuple in loggedusers:
-            print(f"<{usertuple[0]}>")
+        print("Users logged in:")
+        for _user in loggedusers:
+            print(f"<{_user.username}>")
         print("Users not logged in:")
-        for usertuple in otherusers:
-            print(f"<{usertuple[0]}>")
+        for _user in otherusers:
+            print(f"<{_user.username}>")
 
-    @staticmethod
-    def login_required(func):
-        def wrapper_login_required(*args, **kwargs):
-            if any([userlogged for userlogged in user.logged.values()]):
-                value = func(*args, **kwargs)
-                return value
-            else:
-                raise ValueError
+    def login_required(self, username):
+        def decorator_login_required(_func):
+            def wrapper_login_required(*args, **kwargs):
+                if self.get_user(username).logged is True:
+                    output = _func(*args, **kwargs)
+                    return output
+                else:
+                    raise NotLoggedIn("Required user is not logged in")
 
-        return wrapper_login_required
+            return wrapper_login_required
+
+        return decorator_login_required
+
 
 users = [('Ala', "1234"),
          ("Tom", "5678"),
          ("Olaf", "balwanek"),
          ]
 
-for usercredentials in users:
-    newuser = user(*usercredentials)
+log = login()
+for elem in users:
+    log.add_user(*elem)
 
-user.login("Ala", "1234")
+if input("Czy chcesz się zalogować? (y/n?)\n>") in {"Y", "y", "Yes", "yes"}:
+    data = input("Podaj nazwę użytkownika:\n>"), input("Podaj hasło:\n>")
+    log.login(*data)
+else:
+    print("Zalogowano anonimowo")
+
+# log.show_users()
 
 
-# user.show_users()
-
-def program():
-    print("Uruchomiono program")
+@log.login_required("Ala")
+def func():
+    print("Function executed succesfully")
