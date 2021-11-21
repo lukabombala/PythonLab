@@ -4,6 +4,7 @@ def tetranacci(n):
     elif n == 4:
         return 1
     else:
-        return tetranacci(n) + tetranacci(n-1) + tetranacci(n-2) + tetranacci(n-3)
+        return tetranacci(n-1) + tetranacci(n - 2) + tetranacci(n - 3) + tetranacci(n - 4)
 
-print(tetranacci(5))
+
+print(tetranacci(9))
