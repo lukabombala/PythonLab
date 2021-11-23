@@ -1,4 +1,5 @@
 class document:
+
     def __init__(self,
                  title,
                  doctype="<!DOCTYPE html>"):
@@ -22,6 +23,7 @@ class document:
         lines = [
             "<head>\n",
             f"<title>{self.title}</title>\n",
+            '<link href="style.css" rel="stylesheet" type="text/css">',
             "</head>\n",
         ]
         self._file.writelines(lines)

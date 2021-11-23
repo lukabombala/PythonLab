@@ -11,12 +11,52 @@ class body:
         if any([exc_type, exc_val, exc_tb]):
             print(exc_type, exc_val, exc_tb, sep="\n")
 
-    @staticmethod
-    def both(_str, tag, end="\n"):
-        return f"<{tag}>{_str}</{tag}>{end}"
+    def both(self, _str, tag, end):
+        self.file.write(f"<{tag}>{_str}</{tag}>{end}")
 
-    def h1(self, _str, **kwargs):
-        self.file.write(self.both(_str, "h1", [kwargs['end'] if kwargs else "\n"][0]))
+    def br(self):
+        self.file.write("<br>")
 
-    def p(self, _str, **kwargs):
-        self.file.write(self.both(_str, "p", [kwargs['end'] if kwargs else "\n"][0]))
+    def h1(self, _str, end="\n"):
+        self.both(_str, tag="h1", end=end)
+
+    def h2(self, _str, end="\n"):
+        self.both(_str, tag="h2", end=end)
+
+    def h3(self, _str, end="\n"):
+        self.both(_str, tag="h3", end=end)
+
+    def p(self, _str, end="\n"):
+        self.both(_str, tag="p", end=end)
+
+    def data_table(self, data, top_header=True, header=None, end="\n", style=None):
+        """Creates simple html table from 2d data matrix"""
+
+        if style is None:
+            style = ""
+        else:
+            style = ";".join([f"{key}: {value}" for key, value in style.items()])
+
+        self.file.write(f'<table style=\"{style}\">\n')
+        if top_header is True:
+            self.file.write('<tr>\n')
+            for elem in data[0]:
+                self.both(elem, "th", end="\n")
+            self.file.write('</tr>\n')
+            for row in data[1:]:
+                self.file.write('<tr>\n')
+                for elem in row:
+                    self.both(elem, tag="td", end=end)
+                self.file.write('<tr>\n')
+        else:
+            if header is not None:
+                self.file.write('<tr>\n')
+                for elem in header:
+                    self.both(elem, "th", end="\n")
+                self.file.write('</tr>\n')
+            for row in data:
+                self.file.write('<tr>\n')
+                for elem in row:
+                    self.both(elem, tag="td", end=end)
+                self.file.write('<tr>\n')
+        self.file.write(f'</table>{end}')
