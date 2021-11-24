@@ -1,13 +1,11 @@
 from html import document
 from html.tags import body
 import benchmark
+import random as rnd
 
 environment_data = benchmark.environment_data
-
 benchmark_data, benchmark_median = benchmark.run()
 
-#benchmark_data = [[13, 13, 4, 4], [13, 13, 4, 3], [13, 13, 4, 4], [12, 13, 4, 4], [13, 13, 4, 5]]
-#benchmark_median = [1, 2, 3, 4]
 
 benchmark_median.insert(0, 'Median')
 for i, elem in enumerate(benchmark_data):
@@ -21,7 +19,7 @@ header = ['Execution:',
 
 
 def run():
-    doc = document("page")
+    doc = document("page2")
     with doc:
         doc.head()
         with body(doc.file) as b:
