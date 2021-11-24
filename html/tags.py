@@ -29,13 +29,19 @@ class body:
     def p(self, _str, end="\n"):
         self.both(_str, tag="p", end=end)
 
-    def data_table(self, data, top_header=True, header=None, end="\n", style=None):
+    def data_table(self,
+                   data,
+                   top_header=True,
+                   header=None,
+                   end="\n",
+                   style=None):
         """Creates simple html table from 2d data matrix"""
 
         if style is None:
             style = ""
         else:
-            style = ";".join([f"{key}: {value}" for key, value in style.items()])
+            temp = [f"{key}: {value}" for key, value in style.items()]
+            style = ";".join(temp)
 
         self.file.write(f'<table style=\"{style}\">\n')
         if top_header is True:

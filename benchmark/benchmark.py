@@ -21,16 +21,19 @@ def function(n):
     while i <= n:
         _sum += (n - i) * i
         i += 1
+    return _sum
 
 
-function_arguments = [15972490, 80247910, 92031257, 75940266, 97986012, 87599664, 75231321, 11138524, 68870499,
-                      11872796, 79132533, 40649382, 63886074, 53146293, 36914087, 62770938]
+function_arguments = [15972490, 80247910, 92031257, 75940266,
+                      97986012, 87599664, 75231321, 11138524,
+                      68870499, 11872796, 79132533, 40649382,
+                      63886074, 53146293, 36914087, 62770938]
 
 
 def time(func, ntimes, *args, **kwargs):
     output = []
-    print(f"timing function {func.__name__}")
     for i in range(ntimes):
+        print(f"timing function {func.__name__}")
         s = timer()
         func(*args)
         output.append(timer() - s)
@@ -67,8 +70,8 @@ def run():
         time(test_func4, 5, function, function_arguments),
     ]
 
-    median = [elem[2] for elem in [sorted(out) for out in outputs]]
+    median = [f"{elem[2]:.3f}" for elem in [sorted(out) for out in outputs]]
 
-    data = [[elem[i] for elem in outputs] for i in range(5)]
+    data = [[f"{elem[i]:.3f}" for elem in outputs] for i in range(5)]
 
     return data, median
