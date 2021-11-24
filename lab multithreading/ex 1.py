@@ -1,10 +1,11 @@
 import threading
 
+
 def thread_function(i, seq):
     thread_function._lock = threading.Lock()
     with thread_function._lock:
         for j in range(9):
-            seq.append(10*i+j)
+            seq.append(10 * i + j)
 
 
 if __name__ == "__main__":

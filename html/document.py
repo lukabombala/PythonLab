@@ -23,7 +23,12 @@ class document:
         lines = [
             "<head>\n",
             f"<title>{self.title}</title>\n",
-            '<link href="style.css" rel="stylesheet" type="text/css">',
+            '<style>',
+            'table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}',
+            'td, th {border: 1px solid #dddddd;text-align: center;padding: 8px;}',
+            'tr:nth-child(even) {  background-color: #dddddd;}',
+            'th {width: 5%;}',
+            '</style>',
             "</head>\n",
         ]
         self._file.writelines(lines)

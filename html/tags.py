@@ -54,9 +54,15 @@ class body:
                 for elem in header:
                     self.both(elem, "th", end="\n")
                 self.file.write('</tr>\n')
-            for row in data:
+            if not isinstance(data[0], list):
                 self.file.write('<tr>\n')
-                for elem in row:
+                for elem in data:
                     self.both(elem, tag="td", end=end)
-                self.file.write('<tr>\n')
+                self.file.write('</tr>\n')
+            else:
+                for row in data:
+                    self.file.write('<tr>\n')
+                    for elem in row:
+                        self.both(elem, tag="td", end=end)
+                    self.file.write('</tr>\n')
         self.file.write(f'</table>{end}')
